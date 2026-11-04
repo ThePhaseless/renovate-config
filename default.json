@@ -1,0 +1,32 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "description": "Default Renovate preset for all ThePhaseless repositories",
+  "extends": ["config:best-practices"],
+  "minimumReleaseAge": "3 days",
+  "osvVulnerabilityAlerts": true,
+  "lockFileMaintenance": {
+    "automerge": true
+  },
+  "pre-commit": {
+    "enabled": true,
+    "automerge": true
+  },
+  "packageRules": [
+    {
+      "groupName": "All non-major dependencies",
+      "groupSlug": "all-minor-patch",
+      "matchUpdateTypes": ["minor", "patch", "digest", "pinDigest"],
+      "automerge": true
+    },
+    {
+      "description": "No release date to check: Docker images outside Docker Hub (renovate#39064, #38572, #38656)",
+      "matchDatasources": ["docker"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    },
+    {
+      "description": "No release date to check: update types Renovate cannot age (docs: key-concepts/minimum-release-age)",
+      "matchUpdateTypes": ["lockFileMaintenance", "lockfileUpdate", "pin", "rollback"],
+      "minimumReleaseAgeBehaviour": "timestamp-optional"
+    }
+  ]
+}
